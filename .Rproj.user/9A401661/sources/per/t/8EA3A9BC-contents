@@ -1,0 +1,258 @@
+########################################################################################
+#####################       ESCUELA POLIT?CNICA NACIONAL           ##################### 
+########################################################################################
+#                                   PAULA ?VILA                               #
+########################################################################################
+######################      CURSO R Y SUS APLICACIONES             #####################
+######################    #####################
+######################################################################################## 
+
+## VECTORES
+# Un vector es una colección de uno o más objetos del mismo tipo (caracteres, números)
+# Un vector no tiene dimensión en R, más allá de que en álgebra se considera que
+# los vectores tienen dimensión 1. Es decir, en R y a diferencia de otros
+# lenguajes como Matlab u Octave, los vectores no son fila o columna, si no
+# que simplemente son una secuencia de valores. 
+
+0:10
+a<-1:5
+c<-0:(10 - 1);c #formato original
+b<-(0:10)-2;b #resta en cada una de las posiciones del vector
+
+# funcion c()
+x <- c(4, 6, 7);x
+x1<-c(1:10);x1
+z<-c("a","b",3) #usamos comillas para definir dato de tipo caracter
+
+length(z) #dimension
+str(z) #estructura interna del objeto
+typeof(z) #tipo de dato
+class(z) #clase del objeto
+
+u<-5 > 2:8;u
+class(u)
+
+### Concatenar vectores y tipos de datos
+# Varios vectores o elementos individuales se pueden concatenar para crear un
+# nuevo vector cuyo tamaño es igual a la suma de dichos elementos. Como mencio-
+# namos anteriormente, estos elementos deben ser todos del mismo tipo. La
+# función "c" se usa para esto:
+
+
+x <- c(0:-5, 11:16)
+y <- c(pi, 2)
+z <- c(x, y) #concatenar vectores
+z
+
+# En el caso de concatenar objetos de diferentes tipos, R reasigna los elemen-
+# tos a la clase apropiada. Por ejemplo si concatenamos elementos numéricos y
+# caracteres:
+# R convierte a todos en character y no a la inversa, ya que es la opción que
+# no se presta a ambigüedades.
+
+# orden de preferencia:
+# character >= double >= integer >= logical
+#Para coercionar un vector a un determinado tipo, se utilizan las funciones "as"
+x <- c(4, "papa", 7)
+class(x)
+x2<-as.numeric(x)
+x2
+x3<-c(TRUE,FALSE,TRUE)
+x4<-as.numeric(x3)
+x5<-as.character(x3)
+x4
+x5
+
+# Las clases posibles de los vectores son 5: integer, numeric, character, logical
+# y complex. Estos son algunos ejemplos:
+x <- 1:5
+class(x) # integer (enteros)
+x <- seq(11, 15, by=0.1)
+class(x) # numeric
+x <- c('Gabi', 'Fofó', 'Miliki')
+class(x) # character
+x <- 1:3 > 1.34
+class(x) # logical (valores lógicos, TRUE/FALSE)
+x <- 1:4 + 1i
+class(x) # complex
+
+
+### Operaciones entre vectores
+x<-c(2,3,6,7) # presenta x
+y <- c(10, 20, 30, 40) # Crea y
+x + 3*y - 1
+x*y
+
+
+#### Generar secuencias, repeticiones y aleatorios
+
+# Una función práctica es rep, la cual sirve para repetir n veces un valor o un
+# vector. Por ejemplo el siguiente comando
+rep(z, times=5) # repetir todo el vector 5 veces
+rep(z, each=5)  # repetir cada elemento 5 veces
+rep('char', 5)
+rep(c(5, 7, 2), 3)
+rep(c(5, 7, 2), each=3)
+
+# La función "seq" sirve para generar secuencias de valores con mayor flexibilidad que
+# el operador :. Por ejemplo, para generar secuencias de valores entre 0 y 1,
+# cuyos valores consecutivos tengan una diferencia de 0.05, podemos correr:
+seq(from= 0, to= 20, by= 5) # función seq
+seq(from= 5, by= 5, length.out= 6) # función seq
+seq(0, 1, by = 0.05)
+seq(0, 1, length = 5)
+round(seq(from=0,to=1,len=8),2) #round se usa para fijar el numero de decimales 
+
+# Existen diversas maneras para  crear variables numéricas, una de ellas es 
+# crearlas de manera ALEATORIAMENTE con el comando
+#**r....(número de números aleatorios que se desea, parámetros )** seguido 
+# de la distribución que desea utilizar con sus respectivos parámetros, 
+#por ejemplo **rexp(5,8)** 5 números aleatorios que siguen una distribución 
+#exponencial de parámetro 8.
+runif(n= 10, min= 1, max= 5) # Genera aleatorios uniformes
+rnorm(n= 10, mean= 100, sd= 10) # Genera aleatorios normales
+a<-rexp(2,1) #Gernera exponenciales
+rexp(2)
+b<-runif(10);b
+b1<-runif(10,min = 5,max = 10);b1
+c<-rnorm(4,mean = 5,sd = 7)
+
+
+### ?ndices de los vectores
+
+# Los corchetes o paréntesis rectos se utilizan para especificar elementos de
+# los vectores, usando ?ndices, los cuales deben ser números enteros. Si
+# queremos acceder a uno o más valores de un vector, usamos ?ndices entre
+# paréntesis rectos [ ]. El valor que pongamos dentro indica la posición del
+# valor requerido en el vector. Es decir, x[i] indica el iésimo valor de x.
+
+x<-rep(c(3,5,4,7),6);x
+#Debemos conocer a la longitud de nuestro vector pues este será el ultimo valor al que podemos acceder
+length(x)
+
+#podemos acceder a una posición del vector
+x[11]
+
+#valores de varias posiciones,por ejemplo acceder a las posiciones 3 a 12
+x[3:12]
+
+#indicar los valores de posiciones espec?ficas:
+x[c(3,9,12)]
+
+#Podemos usar vectores logicos
+x[rep(c(T,F),each=10)]
+x
+#Indicar las posiciones que no queremos que aparezcan
+x[-1]
+
+#No se muestren los valores 3 a 13
+x[-(3:11)]
+
+#No queremos que se muestren los valores 3,11 y 21
+x[-c(3,11,12)]
+
+### Acceso con conectores lógicos
+
+#Indicar los valores iguales a 3
+x[x==3]
+
+#si no existe el valor indicado se resivira el siguiente mensaje: numeric(0)
+x[x==8]
+
+#Los valores menores a 2
+x[x<2]
+
+#Los valores menores a 2 y mayores a 3
+x[x<2 & x>3]
+
+#Los valores menores a 2 o mayores a 4
+x[x<2 | x>=4]
+
+#para saber cuales son las posiciones de los vectores que cumplen estas condiciones 
+#se usa la función which
+pos<-which(x<2| x>=4)
+x[pos]
+
+######################################################################################## 
+## MATRICES
+######################################################################################## 
+# Habiendo visto vectores, que son arreglos de objetos en una dimensión, en
+# esta sección veremos un tipo de objeto, las matrices, que son arreglos en dos
+# dimensiones.
+
+# Una manera bastante elemental de crear una matriz, es utilizando la función
+# matrix, como en el siguiente ejemplo:
+m <- matrix(0, nrow = 3, ncol = 3);m
+m1 <- matrix(1, nrow = 3, ncol = 3);m1
+
+# Si se desea se puede cambiar esta forma de rellenado con el argumento byrow,
+# de la forma en que sigue:
+m <- matrix(1:9, nrow = 3, byrow = TRUE) #llenado por filas
+m
+m2 <- matrix(1:9, nrow = 3,ncol = 3) #llenado por columnas
+m2
+
+#Otra forma de crear matrices se da cuando se usan las funciones cbind y rbind, 
+#estas funciones sirven para combinar vectores de iguales dimensionsiones por 
+#columnas y por filas respectivamente.
+
+x<-1:21;x
+y<-runif(21,0,6);y
+z<-seq(0,length=10);z
+v<-rep("h",21);v
+m3<-rbind(x,y);m3 #combinar por filas
+m4<-cbind(x,y);m4 #combinar por columnas
+m5<-rbind(y,x);m5 #intercambiando el orden
+
+#si los vectores no poseen iguales dimensiones escribira un mensaje diciendo que se 
+#dubplicaron los valores del vector con longitud menor.
+m6<-cbind(x,z,y);m6
+#Aqu? también se cumplen las reglas de coerción por ejemplo
+m7<-rbind(m5,v);m7
+
+### Acceder a elementos de una matriz
+m8<-round(matrix(rnorm(20),5,4),2)
+m8
+
+#vamos a usar los [a,b] donde a indica la(s) fila(s) y b indica la(s) columna(s)
+m8[1,2]
+m8[2,2:4]
+m8[3:5,1:3]
+
+#Puedo reasignar nuevos valores mediante el = o <-
+m8[1:3,2]<-100
+m8
+
+#[a,] estoy diciendo que me muestre toda las fila a
+#[,b] estoy diciendo que me muestre toda la columna b
+m8[2,]
+m8[2:4,]
+
+m8[c(3,4)] # por columnas
+
+### Dimensiones
+dim(m8)
+ncol(m8)
+nrow(m8)
+
+#para obtener la matriz transpuesta
+t(m8)
+
+#para calcular el determinante
+m9<-matrix(runif(25,20,40),5,5);m9
+det(m9)
+
+#usando el operador usual
+m10<-matrix(runif(25,10,20),5,5);m10
+m9*m10 #multiplica elemento por elemento de la matriz
+
+# usando el operador %*%
+m9%*%m10 #realiza el producto matricial
+
+## otras operaciones
+colMeans(m9) # Promedios de las columnas
+rowMeans(m9) # Promedios de las filas
+colSums(m9)  # Sumatoria de las columnas
+rowSums(m9)  # y de las filas
+
+#mean(x[,n])para sacar el promedio de una columna
